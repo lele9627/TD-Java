@@ -4,7 +4,7 @@ import java.net.*;
 public class WebServer {
 
     private void readRequest(Socket socket) throws IOException {
-        BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        BufferedReader inputt = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
     }
 
