@@ -6,8 +6,8 @@ public class WebServer {
         while (true) {
             Socket clientSocket = serverSocket.accept();
             HttpContext context = new HttpContext(clientSocket);
-            Thread t = new Thread(new RequestProcessor(context));
-            t.start();
+            Thread thread = new Thread(new RequestProcessor(context));
+            thread.start();
         }
     }
 }

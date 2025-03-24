@@ -9,6 +9,9 @@ public class RequestProcessor implements Runnable {
     public void run() {
         try {
             context.request.readClientRequest(context.clientSocket);
+            System.out.println("Méthode : " + context.request.method);
+            System.out.println("URL     : " + context.request.url);
+
             String url = context.request.url;
 
             if ("/".equals(url)) {
