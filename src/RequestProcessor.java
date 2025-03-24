@@ -9,14 +9,27 @@ public class RequestProcessor implements Runnable {
     public void run() {
         try {
             context.request.readClientRequest(context.clientSocket);
-            if ("/".equals(context.request.url)) {
-                context.response.ok();
+            String url = context.request.url;
+
+            if ("/".equals(url)) {
+                context.response.sendFile("text/html", "public/index.html");
             } else {
-                context.response.notFound();
+                String filePath = "public" + url;
+                String mimeType = getMimeType(filePath);
+                context.response.sendFile(mimeType, filePath);
             }
+
             context.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String getMimeType(String path) {
+        if (path.endsWith(".html")) return "text/html";
+        if (path.endsWith(".css")) return "text/css";
+        if (path.endsWith(".png")) return "image/png";
+        if (path.endsWith(".jpg") || path.endsWith(".jpeg")) return "image/jpeg";
+        return "application/octet-stream";
     }
 }
